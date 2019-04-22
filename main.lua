@@ -1,4 +1,4 @@
-local WIDTH, HEIGHT = love.graphics.getDimensions()
+local width, height = love.graphics.getDimensions()
 local shader
 local palettes = {}
 local palette_names = {"palette.png"}
@@ -16,18 +16,22 @@ function love.load()
   shader:send("palette", palettes[palette_index])
 end
 
+function love.resize(w, h)
+  width, height = w, h
+end
+
 function love.draw()
   love.graphics.clear()
 
   shader:send("center", center)
   shader:send("scale", scale)
   shader:send("iter", iter)
-  shader:send("width", WIDTH)
-  shader:send("height", HEIGHT)
+  shader:send("width", width)
+  shader:send("height", height)
 
   love.graphics.setShader(shader)
   love.graphics.setColor(0, 0.5, 0)
-  love.graphics.rectangle("fill", 0, 0, WIDTH, HEIGHT)
+  love.graphics.rectangle("fill", 0, 0, width, height)
   love.graphics.setShader()
 end
 
